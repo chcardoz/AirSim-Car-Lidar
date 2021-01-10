@@ -3,15 +3,17 @@
 
 import setup_path
 import airsim
-
+import pprint
+import csv
 import sys
 import math
 import time
 import argparse
-import pprint
+import math
 import numpy
-
-# Makes the drone fly and get Lidar data
+import itertools
+from matplotlib import pyplot as plt
+from matplotlib.animation import FuncAnimation
 
 
 class LidarTest:
@@ -21,58 +23,46 @@ class LidarTest:
         # connect to the AirSim simulator
         self.client = airsim.CarClient()
         self.client.confirmConnection()
-        self.client.enableApiControl(True)
-        self.car_controls = airsim.CarControls()
+        # self.client.enableApiControl(True)
+        # self.car_controls = airsim.CarControls()
 
     def execute(self):
+        for i in range(100):
+            lidarData = self.client.getLidarData()
+            if (len(lidarData.point_cloud) < 3):
+                print("\tNo points received from Lidar data")
+            else:
+                print("\tLidar collection no: %s" % i)
+                points = self.parse_lidarData(lidarData)
+                self.csvwrite_lidarData(points)
 
-        for i in range(3):
-
-            state = self.client.getCarState()
-            s = pprint.pformat(state)
-            #print("state: %s" % s)
-
-            # go forward
-            self.car_controls.throttle = 0.5
-            self.car_controls.steering = 0
-            self.client.setCarControls(self.car_controls)
-            print("Go Forward")
-            time.sleep(3)   # let car drive a bit
-
-            # Go forward + steer right
-            self.car_controls.throttle = 0.5
-            self.car_controls.steering = 1
-            self.client.setCarControls(self.car_controls)
-            print("Go Forward, steer right")
-            time.sleep(3)   # let car drive a bit
-
-            airsim.wait_key('Press any key to get Lidar readings')
-
-            for i in range(1, 3):
-                lidarData = self.client.getLidarData()
-                if (len(lidarData.point_cloud) < 3):
-                    print("\tNo points received from Lidar data")
-                else:
-                    points = self.parse_lidarData(lidarData)
-                    print("\tReading %d: time_stamp: %d number_of_points: %d" %
-                          (i, lidarData.time_stamp, len(points)))
-                    print("\t\tlidar position: %s" %
-                          (pprint.pformat(lidarData.pose.position)))
-                    print("\t\tlidar orientation: %s" %
-                          (pprint.pformat(lidarData.pose.orientation)))
-                time.sleep(5)
+            time.sleep(1)
 
     def parse_lidarData(self, data):
 
-        # reshape array of floats to array of [X,Y,Z]
         points = numpy.array(data.point_cloud, dtype=numpy.dtype('f4'))
         points = numpy.reshape(points, (int(points.shape[0]/3), 3))
-
         return points
 
-    def write_lidarData_to_disk(self, points):
-        # TODO
-        print("not yet implemented")
+    # def animate_lidarData(self, points):
+    #     """
+    #     docstring
+    #     """
+    #     pass
+
+    def csvwrite_lidarData(self, points):
+        fieldnames = ["x_coordinate", "y_coordinate"]
+        x, y, z = points.T
+
+        with open('lidar_data.csv', 'w') as csv_file:
+            csv_writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+            csv_writer.writeheader()
+            for(a, b) in zip(x, y):
+                info = {
+                    "x_coordinate": a,
+                    "y_coordinate": b
+                }
+                csv_writer.writerow(info)
 
     def stop(self):
 
@@ -80,7 +70,7 @@ class LidarTest:
 
         self.client.reset()
 
-        self.client.enableApiControl(False)
+        # self.client.enableApiControl(False)
         print("Done!\n")
 
 
