@@ -31,35 +31,36 @@ def animate(i, client):
     if(len(longrange1.point_cloud) >= 3):
         longRangePoints1 = parse_lidarData(longrange1)
         lx1, ly1, lz1 = longRangePoints1.T
-        ax.scatter(ly1, lx1, s=20, color='green')
+        ax.plot([ly1[0], 0], [lx1[0], 0], 'ro-', color='green')
 
     if(len(longrange2.point_cloud) >= 3):
         longRangePoints2 = parse_lidarData(longrange2)
         lx2, ly2, lz2 = longRangePoints2.T
-        ax.scatter(ly2, lx2, s=20, color='green')
+        ax.plot([ly2[0], 0], [lx2[0], 0], 'ro-', color='green')
 
     if(len(shortrange1.point_cloud) >= 3):
         shortRangePoints1 = parse_lidarData(shortrange1)
         sx1, sy1, sz1 = shortRangePoints1.T
-        ax.scatter(sy1, sx1, s=20, color='red')
+        ax.plot([sy1[0], 0], [sx1[0], 0], 'ro-', color='red')
 
     if(len(shortrange2.point_cloud) >= 3):
         shortRangePoints2 = parse_lidarData(shortrange2)
         sx2, sy2, sz2 = shortRangePoints2.T
-        ax.scatter(sy2, sx2, s=20, color='red')
+        ax.plot([sy2[0], 0], [sx2[0], 0], 'ro-', color='red')
 
     if(len(shortrange3.point_cloud) >= 3):
         shortRangePoints3 = parse_lidarData(shortrange3)
         sx3, sy3, sz3 = shortRangePoints3.T
-        ax.scatter(sy3, sx3, s=20, color='red')
+        ax.plot([sy3[0], 0], [sx3[0], 0], 'ro-', color='red')
 
     if(len(shortrange4.point_cloud) >= 3):
         shortRangePoints4 = parse_lidarData(shortrange4)
         sx4, sy4, sz4 = shortRangePoints4.T
-        ax.scatter(sy4, sx4, s=20, color='red')
+        ax.plot([sy4[0], 0], [sx4[0], 0], 'ro-', color='red')
 
-    ax.set_xlim([-50, 50])
-    ax.set_ylim([-50, 50])
+    ax.scatter(0, 0, s=400, marker="^")
+    ax.set_xlim([-100, 100])
+    ax.set_ylim([-100, 100])
     ax.axis('off')
     ax.grid(b=None)
 
@@ -71,5 +72,5 @@ client = airsim.CarClient()  # Create an airsim client
 client.confirmConnection()  # Confirmt that the connection was successful
 
 # This calls animate function every 5 ms
-animation = FuncAnimation(fig, animate, fargs=(client,), interval=1000)
+animation = FuncAnimation(fig, animate, fargs=(client,), interval=1)
 plt.show()  # Show the plot
