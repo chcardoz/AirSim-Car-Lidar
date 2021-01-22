@@ -1,5 +1,5 @@
-# Script that connects to Airsim simulator and reads lidar data
-# To configure LiDAR, edit the settings.json file in AirSim folder
+# Script that connects to Airsim simulator and reads radar data
+# To configure the RADAR sensor, edit the settings.json file in AirSim folder
 
 # for plotting and animating
 import matplotlib.pyplot as plt
@@ -18,6 +18,7 @@ def parse_lidarData(data):
     return points
 
 
+# It uses the same point cloud as the lidar sensor
 def animate(i, client):
     longrange1 = client.getLidarData(lidar_name='LongRangeRadar1')
     longrange2 = client.getLidarData(lidar_name='LongRangeRadar2')
@@ -28,6 +29,7 @@ def animate(i, client):
 
     ax.clear()
 
+    # In the case of radar, instead of mapping the whole point cloud, we just use one point in the point cloud
     if(len(longrange1.point_cloud) >= 3):
         longRangePoints1 = parse_lidarData(longrange1)
         lx1, ly1, lz1 = longRangePoints1.T
