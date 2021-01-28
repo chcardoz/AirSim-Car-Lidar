@@ -5,6 +5,7 @@
 # for plotting and animating
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from statistics import mean
 
 # for reading lidar data and formatting the lidar point cloud
 import airsim
@@ -40,36 +41,36 @@ def animate(i, client):
     if(len(longrange1.point_cloud) >= 3):
         longRangePoints1 = parse_lidarData(longrange1)
         lx1, ly1, lz1 = longRangePoints1.T
-        ax.plot([ly1[0], 0], [lx1[0], 0], 'ro-', color='green')
+        ax.plot([mean(lx1), 0], [mean(lx1), 0], 'ro-', color='green')
 
     if(len(longrange2.point_cloud) >= 3):
         longRangePoints2 = parse_lidarData(longrange2)
         lx2, ly2, lz2 = longRangePoints2.T
-        ax.plot([ly2[0], 0], [lx2[0], 0], 'ro-', color='green')
+        ax.plot([mean(ly2), 0], [mean(lx2), 0], 'ro-', color='green')
 
     if(len(shortrange1.point_cloud) >= 3):
         shortRangePoints1 = parse_lidarData(shortrange1)
         sx1, sy1, sz1 = shortRangePoints1.T
-        ax.plot([sy1[0], 0], [sx1[0], 0], 'ro-', color='red')
+        ax.plot([mean(sy1), 0], [mean(sx1), 0], 'ro-', color='red')
 
     if(len(shortrange2.point_cloud) >= 3):
         shortRangePoints2 = parse_lidarData(shortrange2)
         sx2, sy2, sz2 = shortRangePoints2.T
-        ax.plot([sy2[0], 0], [sx2[0], 0], 'ro-', color='red')
+        ax.plot([mean(sy2), 0], [mean(sx2), 0], 'ro-', color='red')
 
     if(len(shortrange3.point_cloud) >= 3):
         shortRangePoints3 = parse_lidarData(shortrange3)
         sx3, sy3, sz3 = shortRangePoints3.T
-        ax.plot([sy3[0], 0], [sx3[0], 0], 'ro-', color='red')
+        ax.plot([mean(sy3), 0], [mean(sx3), 0], 'ro-', color='red')
 
     if(len(shortrange4.point_cloud) >= 3):
         shortRangePoints4 = parse_lidarData(shortrange4)
         sx4, sy4, sz4 = shortRangePoints4.T
-        ax.plot([sy4[0], 0], [sx4[0], 0], 'ro-', color='red')
+        ax.plot([mean(sy4), 0], [mean(sx4), 0], 'ro-', color='red')
 
     ax.scatter(0, 0, s=400, marker="^")
-    ax.set_xlim([-100, 100])
-    ax.set_ylim([-100, 100])
+    ax.set_xlim([-70, 70])
+    ax.set_ylim([-70, 70])
     ax.axis('off')
     ax.grid(b=None)
 
