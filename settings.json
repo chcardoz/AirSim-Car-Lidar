@@ -42,8 +42,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": -15,
-          "HorizontalFOVEnd": 15,
+          "HorizontalFOVStart": -5,
+          "HorizontalFOVEnd": 5,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         },
@@ -62,8 +62,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": 165,
-          "HorizontalFOVEnd": 195,
+          "HorizontalFOVStart": 175,
+          "HorizontalFOVEnd": 185,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         },
@@ -82,8 +82,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": 10,
-          "HorizontalFOVEnd": 105,
+          "HorizontalFOVStart": 55,
+          "HorizontalFOVEnd": 65,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         },
@@ -102,8 +102,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": 255,
-          "HorizontalFOVEnd": 355,
+          "HorizontalFOVStart": 115,
+          "HorizontalFOVEnd": 125,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         },
@@ -122,8 +122,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": 75,
-          "HorizontalFOVEnd": 170,
+          "HorizontalFOVStart": 235,
+          "HorizontalFOVEnd": 245,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         },
@@ -142,8 +142,8 @@
           "Yaw": 0,
           "VerticalFOVUpper": 0,
           "VerticalFOVLower": 0,
-          "HorizontalFOVStart": 190,
-          "HorizontalFOVEnd": 285,
+          "HorizontalFOVStart": 295,
+          "HorizontalFOVEnd": 300,
           "DrawDebugPoints": false,
           "DataFrame": "SensorLocalFrame"
         }
