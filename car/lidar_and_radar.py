@@ -20,8 +20,8 @@ def parse_lidarData(data):
     return points
 
 
-# It uses the same point cloud as the lidar sensor
 def animate(i, client):
+    # Get the lidar data from each sensor that the client ("car") has
     lidarData = client.getLidarData(lidar_name="LidarSensor")
     longrange1 = client.getLidarData(lidar_name='LongRangeRadar1')
     longrange2 = client.getLidarData(lidar_name='LongRangeRadar2')
@@ -30,14 +30,18 @@ def animate(i, client):
     shortrange3 = client.getLidarData(lidar_name='ShortRangeRadar3')
     shortrange4 = client.getLidarData(lidar_name='ShortRangeRadar4')
 
+    # Clear the plot because if you dont, it will hog up the memory
     ax.clear()
 
+    # you need atleast 3 numbers in a single point of the point cloud to even parse it
     if(len(lidarData.point_cloud) >= 3):
         lidarPoints = parse_lidarData(lidarData)
         x, y, z = lidarPoints.T
         ax.scatter(y, x, s=10, color="black")
 
-    # In the case of radar, instead of mapping the whole point cloud, we just use one point
+    # In the case of radar, instead of mapping the whole point cloud, we just use one point - which for now is just the mean of all the points.
+    # The mean of all points is the mean of the x values and mean of the y values.
+
     if(len(longrange1.point_cloud) >= 3):
         longRangePoints1 = parse_lidarData(longrange1)
         lx1, ly1, lz1 = longRangePoints1.T
